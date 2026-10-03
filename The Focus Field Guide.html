@@ -1,0 +1,400 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>The Focus Field Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap">
+
+<style>
+  /*
+    Layout: phone-first centered stack, max 480px
+    Dark-first palette: deep navy night / warm cream text / orange accent from ebook cover
+  */
+  :root {
+    --bg: #f6f1e9;
+    --surface: #ffffff;
+    --fg: #1b1f33;
+    --fg-muted: #727894;
+    --accent: #e06b26;
+    --accent-soft: rgba(224,107,38,0.10);
+    --mint: #38967a;
+    --mint-soft: rgba(56,150,122,0.10);
+    --fb-blue: rgba(59,89,179,0.10);
+    --spotify-green: rgba(30,215,96,0.10);
+    --border: rgba(27,31,51,0.08);
+    --shadow: 0 1px 8px rgba(27,31,51,0.07), 0 4px 20px rgba(27,31,51,0.04);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #13162a;
+      --surface: #1c2038;
+      --fg: #ede8d8;
+      --fg-muted: #8a90b0;
+      --accent: #f5904a;
+      --accent-soft: rgba(245,144,74,0.13);
+      --mint: #4db898;
+      --mint-soft: rgba(77,184,152,0.13);
+      --fb-blue: rgba(100,140,230,0.12);
+      --spotify-green: rgba(60,220,110,0.12);
+      --border: rgba(255,255,255,0.07);
+      --shadow: 0 1px 8px rgba(0,0,0,0.24), 0 4px 24px rgba(0,0,0,0.18);
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #13162a;
+    --surface: #1c2038;
+    --fg: #ede8d8;
+    --fg-muted: #8a90b0;
+    --accent: #f5904a;
+    --accent-soft: rgba(245,144,74,0.13);
+    --mint: #4db898;
+    --mint-soft: rgba(77,184,152,0.13);
+    --fb-blue: rgba(100,140,230,0.12);
+    --spotify-green: rgba(60,220,110,0.12);
+    --border: rgba(255,255,255,0.07);
+    --shadow: 0 1px 8px rgba(0,0,0,0.24), 0 4px 24px rgba(0,0,0,0.18);
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    padding-inline: 20px;
+    min-height: 100%;
+    position: relative;
+  }
+
+  /* ambient canvas behind everything */
+  #ambient {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 460px;
+    margin: 0 auto;
+    padding-block: 52px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 28px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  .logo {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(30px, 9vw, 42px);
+    font-weight: 300;
+    font-optical-sizing: auto;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    color: var(--fg);
+  }
+
+  .logo em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .tagline {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--fg-muted);
+    font-weight: 400;
+  }
+
+  /* ── LINK CARDS ── */
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    text-decoration: none;
+    color: var(--fg);
+    box-shadow: var(--shadow);
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+  }
+
+  .link-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.13);
+    border-color: var(--accent);
+  }
+
+  .link-card:active {
+    transform: translateY(0px);
+  }
+
+  .link-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .link-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .icon-website  { background: var(--accent-soft); }
+  .icon-popai    { background: var(--mint-soft); }
+  .icon-fb       { background: var(--fb-blue); }
+  .icon-podcast  { background: var(--spotify-green); }
+
+  .link-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .link-name {
+    font-size: 14.5px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .link-sub {
+    font-size: 12px;
+    color: var(--fg-muted);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .link-arrow {
+    color: var(--fg-muted);
+    font-size: 16px;
+    flex-shrink: 0;
+    opacity: 0.6;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+
+  .link-card:hover .link-arrow {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--fg-muted);
+    line-height: 1.7;
+  }
+
+  .footer strong {
+    color: var(--fg);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .link-card,
+    .link-arrow { transition: none }
+  }
+</style>
+
+<canvas id="ambient"></canvas>
+
+<div class="page">
+  <header class="header">
+    <p class="eyebrow">The Focus Field Guide</p>
+    <h1 class="logo">Hành trình<br>tiếp theo<br>của <em>bạn.</em></h1>
+    <p class="tagline">Chọn nơi bạn muốn tiếp tục.</p>
+  </header>
+
+  <nav class="links" aria-label="Hành trình tiếp theo">
+    <a class="link-card" href="https://phhonglena.github.io/popcorn.brain/index.html" target="_blank" rel="noopener noreferrer">
+      <div class="link-icon icon-website" aria-hidden="true">🌐</div>
+      <div class="link-body">
+        <div class="link-name">Website Điểm Hẹn</div>
+        <div class="link-sub">Khám phá &amp; thực hành theo trạng thái</div>
+      </div>
+      <span class="link-arrow" aria-hidden="true">→</span>
+    </a>
+
+    <a class="link-card" href="https://phhonglena.github.io/popcorn.brain/room2.html" target="_blank" rel="noopener noreferrer">
+      <div class="link-icon icon-popai" aria-hidden="true">🤖</div>
+      <div class="link-body">
+        <div class="link-name">POP AI · Tâm sự &amp; Gỡ rối</div>
+        <div class="link-sub">Trò chuyện khi đầu óc lộn xộn</div>
+      </div>
+      <span class="link-arrow" aria-hidden="true">→</span>
+    </a>
+
+    <div class="divider">Cộng đồng</div>
+
+    <a class="link-card" href="https://www.facebook.com/thefocuscommunity/" target="_blank" rel="noopener noreferrer">
+      <div class="link-icon icon-fb" aria-hidden="true">📣</div>
+      <div class="link-body">
+        <div class="link-name">The Focus Community</div>
+        <div class="link-sub">Thử thách · bài viết · chia sẻ hàng tuần</div>
+      </div>
+      <span class="link-arrow" aria-hidden="true">→</span>
+    </a>
+
+    <a class="link-card" href="https://open.spotify.com/show/0Nodd7WLSnHmbARqqF5ap0" target="_blank" rel="noopener noreferrer">
+      <div class="link-icon icon-podcast" aria-hidden="true">🎙️</div>
+      <div class="link-body">
+        <div class="link-name">Podcast trên Spotify</div>
+        <div class="link-sub">Popcorn Brain &amp; kỹ thuật tập trung sâu</div>
+      </div>
+      <span class="link-arrow" aria-hidden="true">→</span>
+    </a>
+  </nav>
+
+  <footer class="footer">
+    <p><strong>KHKT 2026 · Vũng Tàu</strong></p>
+    <p>Phạm Hồng Lê Na · Phạm Võ Việt Anh</p>
+  </footer>
+</div>
+
+<script>
+  // Ambient bubbles matching the scattered-circles motif on the ebook cover
+  const canvas = document.getElementById('ambient');
+  const ctx = canvas.getContext('2d');
+
+  const isDark = () =>
+    document.documentElement.dataset.theme === 'dark' ||
+    (document.documentElement.dataset.theme !== 'light' &&
+     window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+  const CONFIGS = [
+    { rMin: 90,  rMax: 180 },
+    { rMin: 60,  rMax: 120 },
+    { rMin: 110, rMax: 200 },
+    { rMin: 70,  rMax: 140 },
+    { rMin: 50,  rMax: 110 },
+    { rMin: 80,  rMax: 150 },
+  ];
+
+  let bubbles = [];
+
+  function getPalette() {
+    return isDark()
+      ? ['rgba(245,144,74,0.18)', 'rgba(77,184,152,0.13)', 'rgba(120,135,200,0.12)', 'rgba(237,232,216,0.05)', 'rgba(245,144,74,0.09)', 'rgba(77,184,152,0.07)']
+      : ['rgba(224,107,38,0.11)', 'rgba(56,150,122,0.08)', 'rgba(43,50,102,0.06)', 'rgba(224,107,38,0.06)', 'rgba(56,150,122,0.05)', 'rgba(100,110,180,0.07)'];
+  }
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function init() {
+    const pal = getPalette();
+    bubbles = CONFIGS.map((c, i) => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: c.rMin + Math.random() * (c.rMax - c.rMin),
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      color: pal[i]
+    }));
+  }
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function tick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const b of bubbles) {
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.fillStyle = b.color;
+      ctx.fill();
+      if (!reduced) {
+        b.x += b.vx;
+        b.y += b.vy;
+        if (b.x + b.r < 0) b.x = canvas.width + b.r;
+        else if (b.x - b.r > canvas.width) b.x = -b.r;
+        if (b.y + b.r < 0) b.y = canvas.height + b.r;
+        else if (b.y - b.r > canvas.height) b.y = -b.r;
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  resize();
+  init();
+  tick();
+
+  window.addEventListener('resize', () => { resize(); });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', init);
+</script>
+
+</body></html>
