@@ -3,10 +3,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap">
 
 <style>
-  /*
-    Layout: phone-first centered stack, max 480px
-    Dark-first palette: deep navy night / warm cream text / orange accent from ebook cover
-  */
   :root {
     --bg: #f6f1e9;
     --surface: #ffffff;
@@ -18,6 +14,7 @@
     --mint-soft: rgba(56,150,122,0.10);
     --fb-blue: rgba(59,89,179,0.10);
     --spotify-green: rgba(30,215,96,0.10);
+    --ebook-purple: rgba(120,80,220,0.10);
     --border: rgba(27,31,51,0.08);
     --shadow: 0 1px 8px rgba(27,31,51,0.07), 0 4px 20px rgba(27,31,51,0.04);
   }
@@ -34,6 +31,7 @@
       --mint-soft: rgba(77,184,152,0.13);
       --fb-blue: rgba(100,140,230,0.12);
       --spotify-green: rgba(60,220,110,0.12);
+      --ebook-purple: rgba(160,120,255,0.14);
       --border: rgba(255,255,255,0.07);
       --shadow: 0 1px 8px rgba(0,0,0,0.24), 0 4px 24px rgba(0,0,0,0.18);
       color-scheme: dark;
@@ -51,6 +49,7 @@
     --mint-soft: rgba(77,184,152,0.13);
     --fb-blue: rgba(100,140,230,0.12);
     --spotify-green: rgba(60,220,110,0.12);
+    --ebook-purple: rgba(160,120,255,0.14);
     --border: rgba(255,255,255,0.07);
     --shadow: 0 1px 8px rgba(0,0,0,0.24), 0 4px 24px rgba(0,0,0,0.18);
     color-scheme: dark;
@@ -69,7 +68,6 @@
     position: relative;
   }
 
-  /* ambient canvas behind everything */
   #ambient {
     position: fixed;
     inset: 0;
@@ -191,6 +189,7 @@
 
   .icon-website  { background: var(--accent-soft); }
   .icon-popai    { background: var(--mint-soft); }
+  .icon-ebook    { background: var(--ebook-purple); }
   .icon-fb       { background: var(--fb-blue); }
   .icon-podcast  { background: var(--spotify-green); }
 
@@ -297,6 +296,15 @@
       <span class="link-arrow" aria-hidden="true">→</span>
     </a>
 
+    <a class="link-card" href="https://diem-hen.huyengiaxuantruong.chatgpt.site/?page=6" target="_blank" rel="noopener noreferrer">
+      <div class="link-icon icon-ebook" aria-hidden="true">📖</div>
+      <div class="link-body">
+        <div class="link-name">Ebook · The Focus Field Guide</div>
+        <div class="link-sub">Đọc tài liệu nghiên cứu &amp; hướng dẫn</div>
+      </div>
+      <span class="link-arrow" aria-hidden="true">→</span>
+    </a>
+
     <div class="divider">Cộng đồng</div>
 
     <a class="link-card" href="https://www.facebook.com/thefocuscommunity/" target="_blank" rel="noopener noreferrer">
@@ -325,7 +333,6 @@
 </div>
 
 <script>
-  // Ambient bubbles matching the scattered-circles motif on the ebook cover
   const canvas = document.getElementById('ambient');
   const ctx = canvas.getContext('2d');
 
